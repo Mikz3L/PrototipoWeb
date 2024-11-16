@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "div": "nodemon backend/DBconexion.js"
+    "div": "nodemon backend/database/DBconexion.js"
   },
   "keywords": [],
   "author": "",
