@@ -1,13 +1,12 @@
 import express from "express";
-import { CrearUsuario, LogearUsuario } from "../controller/index.js";
 import usuario from "../controller/Usuario.js";
 const router = express.Router();
 
-const usuario = new usuario();
+const usuarioController = new usuario();
 
-router.post("/login", usuario.LogearUsuario);
+router.post("/login", usuarioController.LogearUsuario);
 
-router.post("/registro", usuario.CrearUsuario);
+router.post("/registro", usuarioController.CrearUsuario);
 
 router.get("/", (req, res) => {
   res.render("login");
