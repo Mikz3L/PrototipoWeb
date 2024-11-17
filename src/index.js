@@ -12,6 +12,6 @@ app.set("view engine", "ejs");
 app.use(express.static(join(__dirname, "Public")));
 app.use("/", indexRouter);
 
-app.listen(4000, () => {
-  console.log("Server is running on http://localhost:4000");
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
 });
