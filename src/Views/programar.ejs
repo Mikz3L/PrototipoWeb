@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programar Riego</title>
+    <style>
+        /* Estilos Globales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Navbar */
+        .navbar {
+            background-color: #635ae6;
+            color: white;
+            display: flex;
+            justify-content: center; /* Centra los elementos horizontalmente */
+            align-items: center; /* Centra los elementos verticalmente */
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative; /* Necesario para posicionar notificaciones */
+        }
+
+        /* Estilos para el enlace */
+        .navbar-title {
+        text-decoration: none; /* Elimina el subrayado */
+        color: white; /* Mantiene el color blanco del texto */
+        font-size: 24px; /* Mantiene el tamaño de fuente */
+        font-weight: bold; /* Mantiene el grosor de la fuente */
+        }
+
+
+        .navbar-notifications {
+            position: absolute;
+            right: 20px; /* Alinea las notificaciones a la derecha */
+            font-size: 14px;
+        }
+
+        /* Contenido Principal */
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        /* Formulario de Programación de Riego */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+        }
+        .form-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-container input,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-container button {
+            background-color: #635ae6;
+            color: white;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #514bb5;
+            transition: 0.3s;
+        }
+        .message {
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .message.success {
+            border-color: green;
+            color: green;
+        }
+        .message.error {
+            border-color: red;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
+        <span class="navbar-notifications">Notificaciones</span>
+    </nav>    
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Programa tu Riego</h1>
+
+        <!-- Mensaje dinámico -->
+        <% if (typeof message !== "undefined") { %>
+            <div class="message <%= message.includes('Error') ? 'error' : 'success' %>">
+                <%= message %>
+            </div>
+        <% } %>
+
+        <div class="form-container">
+            <form action="/irrigation_calendar" method="POST">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="irrigation_day" required>
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" name="irrigation_hour" required>
+                <input type="hidden" name="id_user" value="<%= id_user %>">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

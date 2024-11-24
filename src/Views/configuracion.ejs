@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Sensores</title>
+    <style>
+        /* Estilos Globales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #635ae6;
+            color: white;
+            display: flex;
+            justify-content: center; /* Centra los elementos horizontalmente */
+            align-items: center; /* Centra los elementos verticalmente */
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative; /* Necesario para posicionar notificaciones */
+        }
+
+        /* Estilos para el enlace */
+        .navbar-title {
+            text-decoration: none; /* Elimina el subrayado */
+            color: white; /* Mantiene el color blanco del texto */
+            font-size: 24px; /* Mantiene el tamaño de fuente */
+            font-weight: bold; /* Mantiene el grosor de la fuente */
+        }
+
+        .navbar-notifications {
+            position: absolute;
+            right: 20px; /* Alinea las notificaciones a la derecha */
+            font-size: 14px;
+        }
+
+        /* Estilos para el contenido */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .sensor-list {
+            width: 48%;
+            padding: 15px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sensor {
+            background-color: #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sensor p {
+            margin: 0;
+        }
+
+        .battery-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .battery-level {
+            height: 10px;
+            width: 80%; /* Puedes cambiar este valor para simular diferentes niveles de batería */
+            background-color: #4caf50;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            font-size: 14px;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
+        <span class="navbar-notifications">Notificaciones</span>
+    </nav>
+
+    <h1>Configuración de Sensores</h1>
+    
+    <div class="container">
+        <div class="section">
+            <!-- Sensor de Humedad -->
+            <div class="sensor-list">
+                <h3>Humedad</h3>
+                <div class="sensor" id="sensor1-humedad">
+                    <div>
+                        <p>Sensor 1</p>
+                        <p>Estado: Desconectado</p>
+                        <p>Batería: 80%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor1-humedad')">Conectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor2-humedad">
+                    <div>
+                        <p>Sensor 2</p>
+                        <p>Estado: Desconectado</p>
+                        <p>Batería: 50%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor2-humedad')">Conectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor3-humedad">
+                    <div>
+                        <p>Sensor 3</p>
+                        <p>Estado: Conectado</p>
+                        <p>Batería: 65%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor3-humedad')">Desconectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 65%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor4-humedad">
+                    <div>
+                        <p>Sensor 4</p>
+                        <p>Estado: Conectado</p>
+                        <p>Batería: 72%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor4-humedad')">Desconectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 72%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor de Temperatura -->
+            <div class="sensor-list">
+                <h3>Temperatura</h3>
+                <div class="sensor" id="sensor1-temperatura">
+                    <div>
+                        <p>Sensor 1</p>
+                        <p>Estado: Conectado</p>
+                        <p>Batería: 80%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor1-temperatura')">Desconectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor2-temperatura">
+                    <div>
+                        <p>Sensor 2</p>
+                        <p>Estado: Desconectado</p>
+                        <p>Batería: 75%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor2-temperatura')">Conectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor3-temperatura">
+                    <div>
+                        <p>Sensor 3</p>
+                        <p>Estado: Conectado</p>
+                        <p>Batería: 23%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor3-temperatura')">Desconectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 23%"></div>
+                    </div>
+                </div>
+
+                <div class="sensor" id="sensor4-temperatura">
+                    <div>
+                        <p>Sensor 4</p>
+                        <p>Estado: Desconectado</p>
+                        <p>Batería: 10%</p>
+                    </div>
+                    <div>
+                        <button onclick="toggleSensor('sensor4-temperatura')">Conectar</button>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-level" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cambiar el estado del sensor
+        function toggleSensor(sensorId) {
+            const sensorElement = document.getElementById(sensorId);
+            const button = sensorElement.querySelector("button");
+            const status = sensorElement.querySelector("p:nth-child(2)").textContent;
+
+            if (status.includes('Desconectado')) {
+                button.textContent = "Desconectar";
+                sensorElement.querySelector("p:nth-child(2)").textContent = "Estado: Conectado";
+            } else {
+                button.textContent = "Conectar";
+                sensorElement.querySelector("p:nth-child(2)").textContent = "Estado: Desconectado";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -29,31 +29,35 @@ router.get("/menuprincipal", (req, res) => {
   res.render("menuprincipal");
 });
 
+router.get("/programar_riego", (req, res) => {
+  const id_user = 1; // Puedes obtener esto de la sesión o base de datos
+  res.render("programar", { id_user });
+});
+
+router.get("/historial_condiciones", (req, res) => {
+  res.render("historial");
+});
+
+router.get("/configuracion_sensores", (req, res) => {
+  res.render("configuracion");
+});
+
 // ** Rutas relacionadas con IrrigationCalendar **
-//ruta para cargar el formulario de riego
+// Ruta para cargar el formulario de riego
 router.get("/registro_riego", (req, res) => {
-  res.render("irrigation");
+  res.render("calendario");
 });
 
 // Crear un nuevo registro de riego
-router.post(
-  "/irrigation_calendar/crear",
-  irrigationCalendarController.CrearRiego
-);
+router.post("/irrigation_calendar", irrigationCalendarController.CrearRiego);
 
 // Listar todos los registros de riego (lectura)
-router.get("/irrigation_calendar", irrigationCalendarController.ListarRiegos);
+router.get("/registro_riego", irrigationCalendarController.ListarRiegos);
 
 // Actualizar un registro de riego por ID
-router.put(
-  "/irrigation_calendar/:id",
-  irrigationCalendarController.ActualizarRiego
-);
+router.put("/irrigation_calendar/:id", irrigationCalendarController.ActualizarRiego);
 
 // Eliminar un registro de riego por ID
-router.delete(
-  "/irrigation_calendar/:id",
-  irrigationCalendarController.EliminarRiego
-);
+router.delete("/irrigation_calendar/:id", irrigationCalendarController.EliminarRiego);
 
 export default router;

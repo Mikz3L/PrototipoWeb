@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Riego</title>
+
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+
+    <style>
+        /* Navbar */
+        .navbar {
+            background-color: #635ae6;
+            color: white;
+            display: flex;
+            justify-content: center;
+            /* Centra los elementos horizontalmente */
+            align-items: center;
+            /* Centra los elementos verticalmente */
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            /* Necesario para posicionar notificaciones */
+        }
+
+        /* Estilos para el enlace */
+        .navbar-title {
+            text-decoration: none;
+            /* Elimina el subrayado */
+            color: white;
+            /* Mantiene el color blanco del texto */
+            font-size: 24px;
+            /* Mantiene el tamaño de fuente */
+            font-weight: bold;
+            /* Mantiene el grosor de la fuente */
+        }
+
+        .navbar-notifications {
+            position: absolute;
+            right: 20px;
+            /* Alinea las notificaciones a la derecha */
+            font-size: 14px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #calendar {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
+        <span class="navbar-notifications">Notificaciones</span>
+    </nav>
+    
+    <h1 style="text-align: center;">Calendario de Riego</h1>
+    <div id="calendar"></div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek', // Vista semanal
+                locale: 'es', // Idioma español
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,dayGridMonth'
+                },
+                eventClick: function (info) {
+                    alert('Riego: ' + info.event.title + '\nInicio: ' + info.event.start.toISOString());
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+</body>
+
+</html>

@@ -11,13 +11,20 @@ class IrrigationCalendar {
       (err, result) => {
         if (err) {
           console.error("Error al registrar riego:", err);
-          res.status(500).send("Error al registrar riego");
+          res.status(500).render("programar", { 
+            id_user, 
+            message: "Error al registrar riego" 
+          });
           return;
         }
-        res.send("Riego registrado exitosamente");
+        res.render("programar", { 
+          id_user, 
+          message: "Riego registrado exitosamente" 
+        });
       }
     );
   }
+
 
   ListarRiegos(req, res) {
     const query = "SELECT * FROM irrigation_calendar";
@@ -27,9 +34,11 @@ class IrrigationCalendar {
         res.status(500).send("Error al listar riegos");
         return;
       }
-      res.json(results);
     });
   }
+  
+  
+  
 
   ActualizarRiego(req, res) {
     const { id } = req.params;

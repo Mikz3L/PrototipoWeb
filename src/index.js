@@ -6,6 +6,7 @@ import indexRouter from "../backend/routes/index.js";
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+
 app.use(express.urlencoded({ extended: true }));
 app.set("views", join(__dirname, "Views"));
 app.set("view engine", "ejs");

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condiciones Ambientales</title>
+    
+    <!-- Estilos de la página -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #635ae6;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .navbar-title {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-notifications {
+            position: absolute;
+            right: 20px; /* Alinea las notificaciones a la derecha */
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            width: 45%;
+            height: 300px;
+        }
+
+        /* Selectors */
+        select {
+            padding: 10px;
+            font-size: 14px;
+            margin: 0 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+    </style>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
+        <span class="navbar-notifications">Notificaciones</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Historial de Condiciones Ambientales</h1>
+
+        <!-- Filtros para mes y semana -->
+        <div class="dashboard">
+            <div>
+                <label for="monthSelector">Seleccione el mes:</label>
+                <select id="monthSelector">
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+
+                <label for="weekSelector">Seleccione la semana:</label>
+                <select id="weekSelector">
+                    <option value="1">Semana 1</option>
+                    <option value="2">Semana 2</option>
+                    <option value="3">Semana 3</option>
+                    <option value="4">Semana 4</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Chart Containers -->
+        <div class="dashboard">
+            <div class="chart-container">
+                <canvas id="tempChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="humidityChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para crear gráficos -->
+    <script>
+        // Datos de ejemplo de temperatura y humedad por semana
+        const tempData = {
+            labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+            datasets: [{
+                label: 'Temperatura (°C)',
+                data: [22, 25, 28, 23, 24, 26, 21],
+                backgroundColor: 'rgba(255, 99, 132, 0.6)', // Color de las columnas
+                borderColor: 'rgba(255, 99, 132, 1)', // Color del borde
+                borderWidth: 1
+            }]
+        };
+
+        const humidityData = {
+            labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+            datasets: [{
+                label: 'Humedad (%)',
+                data: [65, 60, 58, 62, 67, 70, 64],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color de las columnas
+                borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+                borderWidth: 1
+            }]
+        };
+
+        // Crear los gráficos de columnas
+        const tempChartCtx = document.getElementById('tempChart').getContext('2d');
+        const tempChart = new Chart(tempChartCtx, {
+            type: 'bar', // Cambiado a 'bar' para gráfico de columnas
+            data: tempData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const humidityChartCtx = document.getElementById('humidityChart').getContext('2d');
+        const humidityChart = new Chart(humidityChartCtx, {
+            type: 'bar', // Cambiado a 'bar' para gráfico de columnas
+            data: humidityData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Función para actualizar los gráficos al cambiar mes o semana
+        document.getElementById('monthSelector').addEventListener('change', updateCharts);
+        document.getElementById('weekSelector').addEventListener('change', updateCharts);
+
+        function updateCharts() {
+            // Obtener los valores seleccionados de mes y semana
+            const selectedMonth = document.getElementById('monthSelector').value;
+            const selectedWeek = document.getElementById('weekSelector').value;
+
+            // Aquí podrías hacer una llamada a un backend para obtener los datos de temperatura y humedad basados en el mes y semana seleccionados.
+            // A continuación actualizamos los gráficos con datos de ejemplo.
+            console.log('Mes:', selectedMonth, 'Semana:', selectedWeek);
+
+            // Actualizar los gráficos con nuevos datos (esto es solo un ejemplo estático)
+            tempChart.data.datasets[0].data = [22, 25, 28, 23, 24, 26, 21]; // Actualiza con datos según mes y semana
+            humidityChart.data.datasets[0].data = [65, 60, 58, 62, 67, 70, 64]; // Actualiza con datos según mes y semana
+
+            // Volver a dibujar los gráficos
+            tempChart.update();
+            humidityChart.update();
+        }
+    </script>
+</body>
+</html>
