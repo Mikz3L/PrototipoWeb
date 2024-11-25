@@ -1,6 +1,10 @@
 import express from "express";
 import Usuario from "../controller/Usuario.js";
 import IrrigationCalendar from "../controller/IrrigationCalendar.js";
+import EmailService from "../controller/Notificaciones.js";
+
+const servicioNotificaciones = new EmailService();
+// servicioNotificaciones.sendEmail("Hola","Hola"); es un ejemplo para que sepan usarlo...
 
 const router = express.Router();
 
