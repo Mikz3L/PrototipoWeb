@@ -7,7 +7,7 @@ class EmailService {
       service: 'gmail',
       auth: {
         user: 'josueandres.ap@gmail.com', 
-        pass: '' //agreguen la contraseña privada
+        pass: 'jbro wosb znpo uzhv' //agreguen la contraseña privada
         //cuando manden comitts no suban con la clave porfa
       }
     });

@@ -9,7 +9,7 @@ const servicioNotificaciones = new EmailService();
 const router = express.Router();
 
 const usuarioController = new Usuario();
-const irrigationCalendarController = new IrrigationCalendar();
+const irrigationCalendarController = new IrrigationCalendar(servicioNotificaciones);
 
 // ** Rutas relacionadas con usuarios **
 // Crear un nuevo usuario
