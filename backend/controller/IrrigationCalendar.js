@@ -7,108 +7,96 @@ class IrrigationCalendar {
   // Crear Riego
   CrearRiego(req, res) {
     const servicioNotificaciones = new EmailService();
-    const { id_user, irrigation_day, irrigation_hour } = req.body;
+    const { id_user, irrigation_day, irrigation_start_hour, irrigation_end_hour } = req.body;
 
-    const query =
-      "INSERT INTO irrigation_calendar (id_user, irrigation_day, irrigation_hour) VALUES (?, ?, ?)";
-    
-    db.query(query, [id_user, irrigation_day, irrigation_hour], (err, result) => {
+    const query = `
+      INSERT INTO irrigation_calendar (id_user, irrigation_day, irrigation_start_hour, irrigation_end_hour)
+      VALUES (?, ?, ?, ?)`;
+
+    db.query(query, [id_user, irrigation_day, irrigation_start_hour, irrigation_end_hour], (err, result) => {
       if (err) {
         console.error("Error al registrar riego:", err);
-        res.status(500).render("programar", { 
-          id_user, 
-          message: "Hubo un error al registrar el riego. Inténtalo nuevamente." 
+        return res.status(500).render("programar", {
+          id_user,
+          message: "Hubo un error al registrar el riego. Inténtalo nuevamente.",
         });
-        servicioNotificaciones.sendEmail(
-          "Error en Registro de Riego",
-          `Hubo un error al registrar el riego para el usuario ${id_user}.`
-        );
-        return;
       }
-      
-      res.render("programar", { 
-        id_user, 
-        message: "El riego ha sido registrado exitosamente." 
+
+      res.render("programar", {
+        id_user,
+        message: "El riego ha sido registrado exitosamente.",
       });
 
+      // Enviar notificación por correo
       servicioNotificaciones.sendEmail(
         "Riego Registrado",
-        `El riego para el usuario ${id_user} ha sido registrado exitosamente para el día ${irrigation_day} a las ${irrigation_hour}.`
+        `El riego para el usuario ${id_user} ha sido registrado exitosamente para el día ${irrigation_day} de ${irrigation_start_hour} hasta ${irrigation_end_hour}.`
       );
     });
   }
 
   // Listar Riegos
   ListarRiegos(req, res) {
-    const query = "SELECT * FROM irrigation_calendar";
-    
+    const query = `
+      SELECT irrigation_calendar.*, user.name AS user_name 
+      FROM irrigation_calendar 
+      INNER JOIN user ON irrigation_calendar.id_user = user.id_user`;
+
     db.query(query, (err, results) => {
       if (err) {
         console.error("Error al listar riegos:", err);
-        res.status(500).send("Hubo un error al obtener la lista de riegos.");
-        return;
+        return res.status(500).send("Hubo un error al obtener la lista de riegos.");
       }
-      
+
       if (results.length === 0) {
-        res.status(404).send("No hay riegos registrados.");
-      } else {
-        res.status(200).json(results);
+        return res.status(404).send("No hay riegos registrados.");
       }
+
+      res.status(200).render("listarRiegos", { riegos: results });
     });
   }
 
   // Actualizar Riego
   ActualizarRiego(req, res) {
     const { id } = req.params;
-    const { irrigation_day, irrigation_hour } = req.body;
+    const { irrigation_day, irrigation_start_hour, irrigation_end_hour } = req.body;
 
-    const query =
-      "UPDATE irrigation_calendar SET irrigation_day = ?, irrigation_hour = ? WHERE id_calendar = ?";
-    
-    db.query(query, [irrigation_day, irrigation_hour, id], (err, result) => {
+    const query = `
+      UPDATE irrigation_calendar 
+      SET irrigation_day = ?, irrigation_start_hour = ?, irrigation_end_hour = ? 
+      WHERE id_calendar = ?`;
+
+    db.query(query, [irrigation_day, irrigation_start_hour, irrigation_end_hour, id], (err, result) => {
       if (err) {
         console.error("Error al actualizar riego:", err);
-        res.status(500).send("Hubo un error al actualizar el riego. Inténtalo nuevamente.");
-        return;
+        return res.status(500).send("Hubo un error al actualizar el riego.");
       }
 
       if (result.affectedRows === 0) {
-        res.status(404).send("No se encontró el riego para actualizar.");
-      } else {
-        res.send("El riego ha sido actualizado exitosamente.");
-        
-        const servicioNotificaciones = new EmailService();
-        servicioNotificaciones.sendEmail(
-          "Riego Actualizado",
-          `El riego con ID ${id} ha sido actualizado a ${irrigation_day} a las ${irrigation_hour}.`
-        );
+        return res.status(404).send("No se encontró el riego para actualizar.");
       }
+
+      res.send("El riego ha sido actualizado exitosamente.");
     });
   }
 
   // Eliminar Riego
   EliminarRiego(req, res) {
     const { id } = req.params;
+
     const query = "DELETE FROM irrigation_calendar WHERE id_calendar = ?";
-    
+
     db.query(query, [id], (err, result) => {
       if (err) {
         console.error("Error al eliminar riego:", err);
-        res.status(500).send("Hubo un error al eliminar el riego.");
-        return;
+        return res.status(500).send("Hubo un error al eliminar el riego.");
       }
 
       if (result.affectedRows === 0) {
-        res.status(404).send("No se encontró el riego para eliminar.");
-      } else {
-        res.send("El riego ha sido eliminado exitosamente.");
-        
-        const servicioNotificaciones = new EmailService();
-        servicioNotificaciones.sendEmail(
-          "Riego Eliminado",
-          `El riego con ID ${id} ha sido eliminado correctamente.`
-        );
+        return res.status(404).send("No se encontró el riego para eliminar.");
       }
+
+      res.send("El riego ha sido eliminado exitosamente.");
     });
   }
 }

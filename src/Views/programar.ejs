@@ -25,17 +25,10 @@
 
         /* Estilos para el enlace */
         .navbar-title {
-        text-decoration: none; /* Elimina el subrayado */
-        color: white; /* Mantiene el color blanco del texto */
-        font-size: 24px; /* Mantiene el tamaño de fuente */
-        font-weight: bold; /* Mantiene el grosor de la fuente */
-        }
-
-
-        .navbar-notifications {
-            position: absolute;
-            right: 20px; /* Alinea las notificaciones a la derecha */
-            font-size: 14px;
+            text-decoration: none; /* Elimina el subrayado */
+            color: white; /* Mantiene el color blanco del texto */
+            font-size: 24px; /* Mantiene el tamaño de fuente */
+            font-weight: bold; /* Mantiene el grosor de la fuente */
         }
 
         /* Contenido Principal */
@@ -101,7 +94,6 @@
     <!-- Navbar -->
     <nav class="navbar">
         <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
-        <span class="navbar-notifications">Notificaciones</span>
     </nav>    
 
     <!-- Main Content -->
@@ -119,8 +111,10 @@
             <form action="/irrigation_calendar" method="POST">
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="irrigation_day" required>
-                <label for="hora">Hora:</label>
-                <input type="time" id="hora" name="irrigation_hour" required>
+                <label for="horaInicio">Hora de Inicio:</label>
+                <input type="time" id="horaInicio" name="irrigation_start_hour" required>
+                <label for="horaFinal">Hora de Finalización:</label>
+                <input type="time" id="horaFinal" name="irrigation_end_hour" required>
                 <input type="hidden" name="id_user" value="<%= id_user %>">
                 <button type="submit">Guardar</button>
             </form>

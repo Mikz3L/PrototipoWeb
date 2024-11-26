@@ -12,7 +12,8 @@ CREATE TABLE irrigation_calendar (
     id_calendar INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
     irrigation_day DATE,
-    irrigation_hour TIME,
+    irrigation_star_hour TIME,
+    irrigation_end_hour TIME,
     FOREIGN KEY (id_user) REFERENCES User(id_user)
 );
 

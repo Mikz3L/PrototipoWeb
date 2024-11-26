@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,6 @@
             margin: 0;
             padding: 0;
         }
-
         /* Navbar */
         .navbar {
             background-color: #635ae6;
@@ -26,9 +26,14 @@
         .navbar-title {
             font-size: 24px;
             font-weight: bold;
-            flex-grow: 1;
-            text-align: center; /* Centra el título */
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Centra el título horizontalmente */
         }
+
+
 
         .logout-btn {
             background-color: transparent;
@@ -55,7 +60,8 @@
         .welcome-section h1 {
             color: #555;
             font-size: 28px;
-            text-align: center; /* Centra el texto de bienvenida */
+            text-align: center;
+            /* Centra el texto de bienvenida */
         }
 
         /* Sección del Dashboard */
@@ -100,12 +106,15 @@
         .buttons-right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Alinea los botones a la derecha */
-            margin-left: 20px; /* Espacio entre el gráfico y los botones */
+            align-items: flex-end;
+            /* Alinea los botones a la derecha */
+            margin-left: 20px;
+            /* Espacio entre el gráfico y los botones */
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
@@ -113,7 +122,6 @@
             <button type="submit" class="logout-btn">Cerrar Sesión</button>
         </form>
         <span class="navbar-title">ORQUIGESTIÓN</span>
-        <span class="navbar-notifications" style="margin-left: auto;">Notificaciones</span> <!-- Notificaciones a la derecha -->
     </nav>
 
     <!-- Main Content -->
@@ -133,86 +141,88 @@
             <div class="buttons-right">
                 <a href="/programar_riego"><button class="action-btn">Programar Riego</button></a>
                 <a href="/registro_riego"><button class="action-btn">Calendario de Riego</button></a>
-                <a href="/historial_condiciones"><button class="action-btn">Historial de Condiciones Ambientales</button></a>
+                <a href="/historial_condiciones"><button class="action-btn">Historial de Condiciones
+                        Ambientales</button></a>
                 <a href="/configuracion_sensores"><button class="action-btn">Configuración de Sensores</button></a>
             </div>
         </section>
     </div>
 
     <script>
-      // Configuración inicial del gráfico
-      const ctx = document.getElementById('sensorChart').getContext('2d');
-      const sensorChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: [],
-              datasets: [
-                  {
-                      label: 'Temperatura (°C)',
-                      data: [],
-                      borderColor: 'rgba(255, 99, 132, 1)',
-                      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                      fill: true,
-                  },
-                  {
-                      label: 'Humedad (%)',
-                      data: [],
-                      borderColor: 'rgba(54, 162, 235, 1)',
-                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                      fill: true,
-                  }
-              ]
-          },
-          options: {
-              responsive: true,
-              plugins: {
-                  legend: {
-                      position: 'top',
-                  }
-              },
-              scales: {
-                  x: {
-                      title: {
-                          display: true,
-                          text: 'Tiempo'
-                      }
-                  },
-                  y: {
-                      title: {
-                          display: true,
-                          text: 'Valores'
-                      },
-                      min: 0, // Limite inferior del eje Y
-                      max: 70, // Limite superior del eje Y
-                  }
-              }
-          }
-      });
-  
-      // Función para simular datos de sensores
-      function simulateSensorData() {
-          const now = new Date().toLocaleTimeString();
-          const randomTemperature = (Math.random() * 10 + 20).toFixed(2); // Temperatura entre 20°C y 30°C
-          const randomHumidity = (Math.random() * 20 + 50).toFixed(2); // Humedad entre 50% y 70%
-  
-          // Agregar datos al gráfico
-          sensorChart.data.labels.push(now);
-          sensorChart.data.datasets[0].data.push(randomTemperature);
-          sensorChart.data.datasets[1].data.push(randomHumidity);
-  
-          // Limitar el gráfico a los últimos 10 puntos
-          if (sensorChart.data.labels.length > 10) {
-              sensorChart.data.labels.shift();
-              sensorChart.data.datasets[0].data.shift();
-              sensorChart.data.datasets[1].data.shift();
-          }
-  
-          // Actualizar el gráfico
-          sensorChart.update();
-      }
-  
-      // Actualizar datos cada 2 segundos
-      setInterval(simulateSensorData, 2000);
-  </script>  
+        // Configuración inicial del gráfico
+        const ctx = document.getElementById('sensorChart').getContext('2d');
+        const sensorChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Temperatura (°C)',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: true,
+                    },
+                    {
+                        label: 'Humedad (%)',
+                        data: [],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tiempo'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Valores'
+                        },
+                        min: 0, // Limite inferior del eje Y
+                        max: 70, // Limite superior del eje Y
+                    }
+                }
+            }
+        });
+
+        // Función para simular datos de sensores
+        function simulateSensorData() {
+            const now = new Date().toLocaleTimeString();
+            const randomTemperature = (Math.random() * 10 + 20).toFixed(2); // Temperatura entre 20°C y 30°C
+            const randomHumidity = (Math.random() * 20 + 50).toFixed(2); // Humedad entre 50% y 70%
+
+            // Agregar datos al gráfico
+            sensorChart.data.labels.push(now);
+            sensorChart.data.datasets[0].data.push(randomTemperature);
+            sensorChart.data.datasets[1].data.push(randomHumidity);
+
+            // Limitar el gráfico a los últimos 10 puntos
+            if (sensorChart.data.labels.length > 10) {
+                sensorChart.data.labels.shift();
+                sensorChart.data.datasets[0].data.shift();
+                sensorChart.data.datasets[1].data.shift();
+            }
+
+            // Actualizar el gráfico
+            sensorChart.update();
+        }
+
+        // Actualizar datos cada 2 segundos
+        setInterval(simulateSensorData, 2000);
+    </script>
 </body>
+
 </html>
