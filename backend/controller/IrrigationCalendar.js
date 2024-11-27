@@ -99,6 +99,26 @@ class IrrigationCalendar {
       res.send("El riego ha sido eliminado exitosamente.");
     });
   }
+
+  // Obtener datos para el calendario
+ObtenerRiegosParaCalendario(req, res) {
+  const query = `
+      SELECT id_calendar AS id, 
+             irrigation_day AS start, 
+             CONCAT(irrigation_day, ' ', irrigation_start_hour) AS start,
+             CONCAT(irrigation_day, ' ', irrigation_end_hour) AS end
+      FROM irrigation_calendar
+  `;
+
+  db.query(query, (err, results) => {
+      if (err) {
+          console.error("Error al obtener los riegos:", err);
+          return res.status(500).json({ error: "Error al obtener los riegos" });
+      }
+
+      res.json(results);
+  });
+}
 }
 
 export default IrrigationCalendar;

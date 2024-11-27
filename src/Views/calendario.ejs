@@ -57,7 +57,7 @@
     <nav class="navbar">
         <a href="/menuprincipal" class="navbar-title">ORQUIGESTIÓN</a>
     </nav>
-    
+
     <h1 style="text-align: center;">Calendario de Riego</h1>
     <div id="calendar"></div>
 
@@ -76,14 +76,21 @@
                     center: 'title',
                     right: 'timeGridWeek,dayGridMonth'
                 },
+                events: '/datos_riego', // Obtiene los eventos desde la ruta del servidor
                 eventClick: function (info) {
-                    alert('Riego: ' + info.event.title + '\nInicio: ' + info.event.start.toISOString());
+                    alert(
+                       `Riego ${info.event.title}
+                        Fecha: ${info.event.start.toLocaleDateString()}
+                        Hora Inicio: ${info.event.start.toLocaleTimeString()}
+                        Hora Final: ${info.event.end ? info.event.end.toLocaleTimeString() : 'No especificado'}`
+                    );
                 }
             });
 
             calendar.render();
         });
     </script>
+
 </body>
 
 </html>

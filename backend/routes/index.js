@@ -15,6 +15,16 @@ const irrigationCalendarController = new IrrigationCalendar(servicioNotificacion
 // Crear un nuevo usuario
 router.post("/registro", usuarioController.CrearUsuario);
 
+// Obtener registros de riego para el calendario
+router.get("/datos_riego", irrigationCalendarController.ObtenerRiegosParaCalendario);
+
+// Eliminar un registro de riego (usando su ID)
+router.delete("/datos_riego/:id", irrigationCalendarController.EliminarRiego);
+
+// Actualizar un registro de riego (usando su ID)
+router.put("/datos_riego/:id", irrigationCalendarController.ActualizarRiego);
+
+
 // Iniciar sesión
 router.post("/login", usuarioController.LogearUsuario);
 
